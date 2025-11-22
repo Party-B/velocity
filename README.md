@@ -66,6 +66,35 @@ Here is the meat of what I think will make this language worthwhile (for me at l
 
     This really was just trying following the fact that I love C's variable++/-- and I was having to write in VBA variable = variable + 1.
 
+**Loops**
+    Here I was a bit unsure as to how I'd like to fill this out. I hated the fact that python doesn't have a VBA equivalent to one of the loops, I can't remember right now but it didn't have until I think? So definitely want that, but also, I started playing around with rust and I like the loop statement there. So I think I'll be aiming for:
+
+    loop {...} // infinite loop without break - compile warning
+    do {...} until x < y; // the condition is checked at the end of the code block
+    until x < y {...} // the condition is checked at the start of the code block
+    while x > y {...} // conditional looping evaluating at entry
+    
+
+**Was variables**
+    I know you can declare 2 variables - 'x' and 'was_x' and then deal with it like that. But I wanted to combine it so that you can use more english natural language syntax. So, I'm planning to implement a one-deep buffer on variable types that are declared with a '?'
+    The idea is that it will automatically store the one previous value to allow for syntax like:
+    
+    ?x = 6
+    ?y = 9
+
+    x = +3  // somewhere down the line I'll explain that I want to support += or x = +3 (where the operator obviously indicates that you're operating on the variable itself) ... note to self, consider how this might affect order of operations of complex assignments
+
+    if x was 9 {...}
+
+    OR
+
+    if x was 6 and x = 9 {...}
+
+    AND
+
+    if y was x and y != 9 {...}
+    
+
 ### 3.5 Module / System Syntax
 
 ## 4. Types

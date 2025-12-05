@@ -1,5 +1,9 @@
 # VELOCITY DESIGN README 
 
+### Latest thoughts
+
+So I've gotten really into rust, and have found that it largely meets a lot of the design principles I had in mind for a language. I'll continue learning rust and keep popping in here to make stream of conscience additions - after some time I'll have to reassess if pursuing this as a language construct actually yields any value.
+
 ## 1. Vision and Constraints
 
 ### 1.1 Purpose
@@ -71,7 +75,7 @@ Here is the meat of what I think will make this language worthwhile (for me at l
 
     loop {...} // infinite loop without break - compile warning
     do {...} until x < y; // the condition is checked at the end of the code block
-    until x < y {...} // the condition is checked at the start of the code block
+    until x < y {...} // the condition is checked at the start of the code block - semantics, just the !while.
     while x > y {...} // conditional looping evaluating at entry
     
 
@@ -120,6 +124,16 @@ I am a self-taught programmer by way of Microsoft VBA macros. I love option expl
 ### 5.2 Name Resolution
 
 ### 5.3 Function Semantics
+
+I would like to have functions return multiple types that could be specified as optional. (Also, side note - I want to have fn and mod where fn expects a return value).
+
+fn parse_ticket(&ticket: ticket_struct) -> name: String, Option<active: bool> {
+
+    if ticket.date < today().date() {
+        active = false
+    }
+
+    name = ticket.purchaser
 
 ### 5.4 Memory Safety Rules
 

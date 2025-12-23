@@ -117,6 +117,50 @@ I am a self-taught programmer by way of Microsoft VBA macros. I love option expl
 
 ### 4.6 Compile-Time Evaluation
 
+### 4.7 Compile-Time Function Definitions
+
+Inspired by C macros and Rust's `constexpr`, Velocity will support **compile-time guaranteed inline functions**. This feature allows developers to define small, frequently-used functions that are always substituted at compile-time for maximum performance, while retaining type safety, scope, and idiomatic function semantics.
+
+#### Syntax Proposal
+
+```velocity
+const_fn is_odd(int x) -> bool {
+    return x & 1
+}
+```
+
+* `const_fn` signals that the function is evaluated at compile-time where possible and inlined everywhere.
+* Function semantics remain fully respected: type checking, scoping, and argument evaluation.
+* If all arguments are compile-time constants, the compiler will evaluate the function during compilation.
+* If arguments are runtime values, the function will still be inlined for performance, eliminating function call overhead.
+
+#### Example Usage
+
+```velocity
+let a = 5
+if is_odd(a) {
+    print("a is odd")
+}
+```
+
+* The `is_odd` function is inlined, producing fast code equivalent to `if (a & 1) {...}` without any function call overhead.
+
+#### Advantages
+
+1. **Readable and idiomatic code** without sacrificing performance.
+2. **Type-safe alternative to macros**.
+3. **Deterministic compile-time evaluation** for constant expressions.
+4. Supports **generic and templated types** in future extensions.
+
+#### Implementation Notes
+
+* The compiler will maintain a compile-time evaluation context for `const_fn` functions.
+* Recursive `const_fn` calls are allowed as long as they terminate at compile-time for constant inputs.
+* For runtime values, the compiler ensures inline substitution, preventing unnecessary stack frames or jumps.
+
+This feature bridges the gap between traditional macro substitution and runtime function calls, giving developers the best of both worlds: **speed and safety**.
+
+
 ## 5. Semantics
 
 ### 5.1 Variable Lifetime Rules
